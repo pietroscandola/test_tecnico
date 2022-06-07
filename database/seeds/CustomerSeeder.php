@@ -15,8 +15,8 @@ class CustomerSeeder extends Seeder
     {
         for ($i = 0; $i < 20; $i++) {
             $customer = new Customer();
-            $customer->name = $faker->name();
-            $customer->surname = $faker->word();
+            $customer->name = $faker->firstname();
+            $customer->surname = $faker->lastname();
             $customer->phone_number = $faker->numerify('###-#######');
             $customer->email = $faker->safeEmail();
             $customer->save();

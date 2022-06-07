@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+        
 
         <!-- Styles -->
         <style>
@@ -68,7 +69,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/admin/customers') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -80,9 +81,9 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>                
+                <div class="row">
+                   <h1>Siamo nella Pagina Guest</h1>
+                </div>               
             </div>
         </div>
     </body>
