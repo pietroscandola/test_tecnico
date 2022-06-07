@@ -22,8 +22,9 @@ Route::middleware('auth')
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/home', 'HomeController@index')->name('customers.home');
+        /* Route::get('/home', 'HomeController@index')->name('customers.home'); */
         Route::resource('/customers', 'CustomerController');
+        Route::resource('/offers', 'OfferController');
     });
 
 Route::get('{any?}', function () {
