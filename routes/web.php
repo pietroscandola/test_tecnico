@@ -26,6 +26,9 @@ Route::middleware('auth')
         Route::resource('/customers', 'CustomerController');
         Route::resource('/offers', 'OfferController');
         Route::resource('/quotations', 'QuotationController');
+        Route::get('/{any}', function () {
+            abort(404);
+        })->where('any', '.*');
     });
 
 Route::get('{any?}', function () {
