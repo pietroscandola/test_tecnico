@@ -25,6 +25,7 @@ Route::middleware('auth')
         /* Route::get('/home', 'HomeController@index')->name('customers.home'); */
         Route::resource('/customers', 'CustomerController');
         Route::resource('/offers', 'OfferController');
+        Route::resource('/quotations', 'QuotationController');
     });
 
 Route::get('{any?}', function () {

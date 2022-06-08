@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Offer;
+use App\Models\Quotation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class OfferController extends Controller
+class QuotationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::all();
-        return view('admin.offers.index', compact('offers'));
+        $quotations = Quotation::all();
+        return view('admin.quotations.index', compact('quotations'));
     }
 
     /**
@@ -26,8 +26,8 @@ class OfferController extends Controller
      */
     public function create()
     {
-        $offer = new Offer();
-        return view('admin.offers.create', compact('offer'));
+        $quotation = new Quotation();
+        return view('admin.quotations.create', compact('quotation'));
     }
 
     /**
@@ -39,73 +39,71 @@ class OfferController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:3'],
             'price' => ['required', 'numeric'],
             'description' => ['string', 'min:10']
         ]);
 
         $data = $request->all();
-        $offer = new Offer();
+        $offer = new Quotation();
         $offer->fill($data);
         $offer->save();
 
-        return redirect()->route('admin.offers.index');
+        return redirect()->route('admin.quotations.index');
     }
 
     /**
      * Display the specified resource.
      *
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function show(Offer $offer)
+    public function show(Quotation $quotation)
     {
-        return view('admin.offers.show', compact('offer'));
+        return view('admin.quotations.show', compact('quotation'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function edit(Offer $offer)
+    public function edit(Quotation $quotation)
     {
-        return view('admin.offers.edit', compact('offer'));
+        return view('admin.quotations.edit', compact('quotation'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $offer = Offer::findOrFail($id);
+        $quotation = Quotation::findOrFail($id);
 
         $request->validate([
-            'name' => ['required', 'string', 'min:3'],
             'price' => ['required', 'numeric'],
             'description' => ['string', 'min:10']
         ]);
 
         $data = $request->all();
-        $offer->update($data);
+        $quotation->update($data);
 
-        return redirect()->route('admin.offers.show', $offer);
+        return redirect()->route('admin.quotations.show', $quotation);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Offer $offer)
+    public function destroy(Quotation $quotation)
     {
-        $offer->delete();
-        return redirect()->route('admin.offers.index');
+        $quotation->delete();
+        return redirect()->route('admin.quotations.index');
     }
 }

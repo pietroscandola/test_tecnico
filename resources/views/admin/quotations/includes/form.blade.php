@@ -1,8 +1,8 @@
-@if ($offer->exists)
-    <form action="{{ route('admin.offers.update', $offer->id) }}" method="POST" enctype="multipart/form-data">
+@if ($quotation->exists)
+    <form action="{{ route('admin.quotations.update', $quotation->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
     @else
-        <form action="{{ route('admin.offers.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.quotations.store') }}" method="post" enctype="multipart/form-data">
 @endif
 @csrf
 <div class="row">
@@ -16,20 +16,15 @@
             </ul>
         </div>
     @endif
-    {{-- NAME --}}
     <div class="col-12 mb-3">
-        <label for="name" class="form-label">Nome</label>
-        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
-            value="{{ old('name', $offer->name) }}" required>
-        @error('name')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <h1>NUMERO PREVENTIV0: {{ $quotation->id }}</h1>
     </div>
+
     {{-- PRICE --}}
     <div class="col-12 mb-3">
         <label for="price" class="form-label">Price</label>
         <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" id="price"
-            value="{{ old('price', $offer->price) }}" required>
+            value="{{ old('price', $quotation->price) }}" required>
         @error('price')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -38,7 +33,7 @@
     <div class="col-12 mb-3">
         <label for="description" class="form-label">Descrizione</label>
         <textarea name="description" id="description" cols="30" rows="5"
-            class="form-control @error('description') is-invalid @enderror" required>{{ old('description', $offer->description) }}            
+            class="form-control @error('description') is-invalid @enderror" required>{{ old('description', $quotation->description) }}            
         </textarea>
 
         @error('description')
@@ -50,7 +45,7 @@
     </div>
     <div class="col-12 d-flex justify-content-end mt-3">
         <input class="btn btn-primary" type="submit" value="Invia">
-        <a href="{{ route('admin.offers.index') }}" class="btn btn-secondary ml-1">Indietro</a>
+        <a href="{{ route('admin.quotations.index') }}" class="btn btn-secondary ml-1">Indietro</a>
     </div>
 
 </div>
