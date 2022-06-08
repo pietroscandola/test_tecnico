@@ -9,4 +9,9 @@ class Quotation extends Model
     protected $fillable = [
         'description', 'price'
     ];
+
+    public function customers()
+    {
+        return $this->hasMany('App\Models\Customer');
+    }
 }

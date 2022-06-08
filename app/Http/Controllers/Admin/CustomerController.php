@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Offer;
 use App\Models\Customer;
 use App\Http\Controllers\Controller;
+use App\Models\Quotation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
+
+
+
 
 class CustomerController extends Controller
 {
@@ -27,7 +35,8 @@ class CustomerController extends Controller
     public function create()
     {
         $customer = new Customer();
-        return view('admin.customers.create', compact('customer'));
+        $offers = Offer::all();
+        return view('admin.customers.create', compact('customer', 'offers'));
     }
 
     /**
@@ -39,16 +48,20 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:3'],
+            'name' => 'required| string| min:3|unique:customers,name',
             'surname' => ['required', 'string', 'min:3'],
             'phone_number' => ['string', 'required'],
-            'email' => ['string', 'required'],
+            'email' => ['string', 'required', ''],
+            'offers' =>  ['nullable', 'exists:offers,id']
         ]);
 
         $data = $request->all();
         $customer = new Customer();
         $customer->fill($data);
         $customer->save();
+        if (array_key_exists('offers', $data)) {
+            $customer->offers()->attach($data['offers']);
+        }
 
         return redirect()->route('admin.customers.index');
     }
@@ -61,7 +74,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('admin.customers.show', compact('customer'));
+        $quotations = Quotation::all();
+        return view('admin.customers.show', compact('customer', 'quotations'));
     }
 
     /**
@@ -72,7 +86,9 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('admin.customers.edit', compact('customer'));
+        $offers = Offer::all();
+        $customer_offers_ids = $customer->offers->pluck('id')->toArray();
+        return view('admin.customers.edit', compact('customer', 'offers', 'customer_offers_ids'));
     }
 
     /**
@@ -84,16 +100,25 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $customer = Customer::findOrFail($id);
+
         $request->validate([
-            'name' => ['required', 'string', 'min:3'],
+            'name' => ['required', 'string', 'min:3', Rule::unique('customers')->ignore($customer->id)],
             'surname' => ['required', 'string', 'min:3'],
-            'phone_number' => ['string', 'required', 'unique'],
-            'email' => ['string', 'required', 'unique'],
+            'phone_number' => ['string', 'required'],
+            'email' => ['string', 'required', Rule::unique('customers')->ignore($customer->id)],
+            'offers' =>  ['nullable', 'exists:offers,id']
         ]);
         $data = $request->all();
+
         $customer->update($data);
 
+        if (!array_key_exists('offers', $data)) {
+            $customer->offers()->detach();
+        } else {
+            $customer->offers()->sync($data['offers']);
+        }
         return redirect()->route('admin.customers.show', $customer);
     }
 

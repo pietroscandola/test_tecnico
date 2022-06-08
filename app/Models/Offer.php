@@ -9,4 +9,9 @@ class Offer extends Model
     protected $fillable = [
         'name', 'price', 'description',
     ];
+
+    public function customers()
+    {
+        return $this->belongsToMany('App\Models\Customer');
+    }
 }

@@ -15,7 +15,7 @@ class OfferSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $offer = new Offer();
             $offer->name = $faker->word();
             $offer->price = $faker->randomFloat(1, 10, 50);

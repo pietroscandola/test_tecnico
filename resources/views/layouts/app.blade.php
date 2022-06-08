@@ -39,14 +39,18 @@
                     <!-- Left Side Of Navbar -->
                     @auth
                         <ul class="navbar-nav mr-auto">
-                            <li class=" mx-1 {{ Request::is('admin/customers') ? 'active' : '' }}">
-                                <a href="{{ route('admin.customers.index') }}" class="btn">Clienti</a>
+                            <li class=" mx-1 nav-item">
+                                <a href="{{ route('admin.customers.index') }}"
+                                    class="nav-link {{ Request::is('admin/customers') ? 'active' : '' }}">Clienti
+                                </a>
                             </li>
-                            <li class=" mx-1 {{ Request::is('admin/offers') ? 'active' : '' }}">
-                                <a href="{{ route('admin.offers.index') }}" class="btn">Offerta</a>
+                            <li class=" mx-1 nav-item">
+                                <a href="{{ route('admin.offers.index') }}"
+                                    class="nav-link {{ Request::is('admin/offers') ? 'active' : '' }}">Offerta</a>
                             </li>
-                            <li class=" mx-1 {{ Request::is('admin/preventive') ? 'active' : '' }}">
-                                <a href="{{ route('admin.quotations.index') }}" class="btn">Preventivi</a>
+                            <li class=" mx-1 nav-item">
+                                <a href="{{ route('admin.quotations.index') }}"
+                                    class="nav-link {{ Request::is('admin/quotations') ? 'active' : '' }}">Preventivi</a>
                             </li>
                         </ul>
                     @endauth
@@ -71,8 +75,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -92,6 +97,7 @@
             @yield('content')
         </main>
     </div>
+
 </body>
 
 </html>

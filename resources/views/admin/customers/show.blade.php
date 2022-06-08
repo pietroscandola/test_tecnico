@@ -9,6 +9,30 @@
                         <h1 class="card-title font-weight-bold mb-3">{{ $customer->name }} {{ $customer->surname }}</h1>
                         <p class="card-text mb-1"><strong>Numero di Telefono:</strong> {{ $customer->phone_number }}</p>
                         <p class="card-text mb-1"><strong>Email:</strong> {{ $customer->email }}</p>
+
+                        <div class="card-text mb-1">
+                            <strong>Offerte Acquistate:</strong>
+                            <ul>
+                                @forelse($customer->offers as $offer)
+                                    <li>{{ $offer->name }}</li>
+                                @empty
+                                    <span>Nessuna Offerta</span>
+                                @endforelse
+                            </ul>
+                        </div>
+
+                        <div class="card-text mb-1">
+                            <strong>Descrizione Preventivi Inviati:</strong>
+
+                            @if (isset($customer->quotation))
+                                <p class="badge badge-pill ">
+                                    {{ $customer->quotation->description }}
+                                </p>
+                            @else
+                                -
+                            @endif
+                        </div>
+
                         <div class="d-flex justify-content-end">
                             <input type="submit" class="btn btn-danger" data-target="#deliteModal" data-toggle="modal"
                                 value="Elimina">
