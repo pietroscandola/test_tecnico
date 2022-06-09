@@ -37,8 +37,9 @@
     {{-- DESCRIPTION --}}
     <div class="col-12 mb-3">
         <label for="description" class="form-label">Descrizione</label>
-        <textarea name="description" id="description" cols="30" rows="5"
-            class="form-control @error('description') is-invalid @enderror" required>{{ old('description', $offer->description) }}            
+        <textarea name="description" id="description" rows="5" class="form-control @error('description') is-invalid @enderror"
+            required>
+            {{ old('description', $offer->description) }}            
         </textarea>
 
         @error('description')

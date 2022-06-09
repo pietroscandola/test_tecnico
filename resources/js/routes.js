@@ -13,8 +13,8 @@ const router = new VueRouter({
 
   routes: [
     { path: "/", component: Home, name: "home" },
-    { path: "/clienti", component: Customer, name: "customer" },
-    { path: "/offerte", component: Offer, name: "offer" },
+    { path: "/customer", component: Customer, name: "customer" },
+    { path: "/offer", component: Offer, name: "offer" },
   ],
 });
 
